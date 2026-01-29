@@ -4,28 +4,27 @@ import { ethers } from "ethers";
 const { GokiteAASDK } = pkg;
 
 export async function sendPayment(agent, { to, amount }) {
-  const { sdk, wallet, ownerAddress } = agent;
-
-  // ⚠️ 单位：假设 amount 是 ETH / 稳定币的“整数单位”
-  const value = ethers.parseEther(amount.toString()).toString();
+  const { sdk, wallet } = agent;
+  const ownerAddress = await wallet.getAddress();
+  const valueWei = ethers.parseEther(amount.toString());
 
   const txRequest = {
-    targets: [to],
-    values: [value],
-    callDatas: ["0x"]
+    target: to,
+    value: valueWei.toString(),
+    callData: "0x"
   };
 
   const signFn = async (userOpHash) => {
-    return await wallet.signMessage(
-      ethers.getBytes(userOpHash)
-    );
+    return wallet.signMessage(ethers.getBytes(userOpHash));
   };
 
-  const txResult = await sdk.sendUserOperationAndWait(
+  const result = await sdk.sendUserOperationAndWait(
     ownerAddress,
     txRequest,
     signFn
   );
 
-  return txResult.userOpHash;
+  console.log("Transaction hash:", Result.userOpHash);
+  return result.userOpHash;
 }
+

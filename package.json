@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/app.js"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,7 @@
   "dependencies": {
     "dotenv": "^17.2.3",
     "ethers": "^6.16.0",
+    "express": "^5.2.1",
     "gokite-aa-sdk": "^1.0.14"
   }
 }

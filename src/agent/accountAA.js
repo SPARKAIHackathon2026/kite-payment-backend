@@ -19,6 +19,7 @@ export async function createAgentAccount() {
   );
 
   const accountAddress = sdk.getAccountAddress(ownerAddress);
+  console.log("Agent account address:", accountAddress);
 
   return {
     sdk,
