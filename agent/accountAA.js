@@ -1,5 +1,6 @@
 import { GokiteAASDK, NETWORKS } from "gokite-aa-sdk";
 import { ethers } from "ethers";
+import { KITE_CONFIG } from "../config/kite.js";
 import "dotenv/config";
 
 export async function createAgentAccount() {
@@ -11,7 +12,7 @@ export async function createAgentAccount() {
 
   const sdk = new GokiteAASDK(
     "kite_testnet",                    // 网络标识
-    NETWORKS.kite_testnet.rpcUrl,      // RPC URL
+    KITE_CONFIG.rpcUrl,                // RPC URL
     "https://bundler-service.staging.gokite.ai/rpc/"  // bundler URL
   );
 
