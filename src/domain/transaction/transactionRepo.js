@@ -14,8 +14,8 @@ export function getTransactions(address, fromTs, toTs) {
   return [
     { 
       token: "USDC", 
-      profit: 0.3,
-      amount: 0.1,
+      profit: 0.03,
+      amount: 0.01,
       timestamp: now - oneDay * 10,
       type: "swap"
     },
@@ -35,7 +35,7 @@ export function getTransactions(address, fromTs, toTs) {
     },
     { 
       token: "USDC", 
-      profit: 0.15,
+      profit: 0.015,
       amount: 0.8,
       timestamp: now - oneDay * 3,
       type: "swap"

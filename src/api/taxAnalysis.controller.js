@@ -3,6 +3,7 @@ import { calculateTaxWithStrategy } from "../domain/tax/taxCalculator.js";
 import { getTaxProfile } from "../domain/kyc/taxProfileRepo.js";
 import { resolveTaxAuthority } from "../domain/tax/taxResolver.js";
 import { getUserKYC } from "../domain/kyc/kycRepo.js";
+import { TAX_CONFIG } from "../../src/config/tax.js";
 
 /**
  * POST /api/tax/analyze
@@ -27,12 +28,21 @@ export async function analyzeTaxHandler(req, res) {
     const taxProfile = getTaxProfile(userAddress);
     if (taxProfile) {
       kyc = {
-        taxResidency: taxProfile.taxResidency || taxProfile.country || "SG",
+        taxResidency: (taxProfile.taxResidency || taxProfile.country || "SG").toUpperCase(),
         taxType: "capital_gains"
       };
     } else {
-      kyc = getUserKYC(userAddress);
+      kyc = getUserKYC(userAddress);// 防止返回 undefined
+      // 确保有默认值
+      kyc.taxResidency = (taxProfile.taxResidency || taxProfile.country || "SG").toUpperCase();
+      kyc.taxType = kyc.taxType || "capital_gains";
     }
+
+    console.log(">>> Debug - User Address:", userAddress);
+    console.log(">>> Debug - Tax Profile:", taxProfile);
+    console.log(">>> Debug - KYC Data:", kyc);
+    console.log(">>> Debug - Tax Residency:", kyc?.taxResidency);
+    console.log(">>> Debug - Full TAX_CONFIG:", TAX_CONFIG);
 
     // 解析税务机构
     const authority = resolveTaxAuthority(kyc);
