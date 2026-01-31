@@ -71,7 +71,7 @@ export async function analyzeTaxHandler(req, res) {
       taxRate: authority.taxRate
     });
   } catch (err) {
-    console.error(">>> Error in analyzeTaxHandler:", err);
+    // console.error(">>> Error in analyzeTaxHandler:", err);
     res.status(500).json({
       success: false,
       error: err.message

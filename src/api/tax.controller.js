@@ -43,7 +43,7 @@ export async function settleTaxHandler(req, res) {
       ...result
     });
   } catch (err) {
-    console.error(">>> Error:", err);
+    // console.error(">>> Error:", err);
     res.status(500).json({
       success: false,
       error: err.message
