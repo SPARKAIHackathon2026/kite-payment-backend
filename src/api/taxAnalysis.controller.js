@@ -3,7 +3,7 @@ import { calculateTaxWithStrategy } from "../domain/tax/taxCalculator.js";
 import { getTaxProfile } from "../domain/kyc/taxProfileRepo.js";
 import { resolveTaxAuthority } from "../domain/tax/taxResolver.js";
 import { getUserKYC } from "../domain/kyc/kycRepo.js";
-import { TAX_CONFIG } from "../../src/config/tax.js";
+import { TAX_CONFIG } from "../config/tax.js";
 
 /**
  * POST /api/tax/analyze
