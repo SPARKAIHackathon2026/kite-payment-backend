@@ -3,15 +3,19 @@ import routes from "./api/routes.js";
 
 const app = express();
 
-// CORS：本地默认 localhost:3000；生产通过 CORS_ORIGIN 配置（逗号分隔多域名）
+// CORS 配置 - 自动去除末尾斜杠
 const allowedOrigins = process.env.CORS_ORIGIN
-    ? process.env.CORS_ORIGIN.split(",").map((o) => o.trim()).filter(Boolean)
+    ? process.env.CORS_ORIGIN.split(",")
+        .map((o) => o.trim())
+        .filter(Boolean)
+        .map((o) => o.replace(/\/$/, ""))  // 👈 移除末尾斜杠
     : [
-        "https://front-end-mu-ten-40.vercel.app/",  // 生产前端
-        "http://localhost:3000/",                    // 本地开发
-        "http://localhost:3001/"                     // 本地后端测试
+        "https://front-end-mu-ten-40.vercel.app",
+        "http://localhost:3000",
+        "http://localhost:3001"
     ];
 
+console.log("Allowed CORS origins:", allowedOrigins); // 调试用
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;
