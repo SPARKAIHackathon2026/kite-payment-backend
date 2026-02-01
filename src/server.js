@@ -5,8 +5,13 @@ const app = express();
 
 // CORS：本地默认 localhost:3000；生产通过 CORS_ORIGIN 配置（逗号分隔多域名）
 const allowedOrigins = process.env.CORS_ORIGIN
-  ? process.env.CORS_ORIGIN.split(",").map((o) => o.trim()).filter(Boolean)
-  : ["http://localhost:3000"];
+    ? process.env.CORS_ORIGIN.split(",").map((o) => o.trim()).filter(Boolean)
+    : [
+        "https://front-end-mu-ten-40.vercel.app/",  // 生产前端
+        "http://localhost:3000/",                    // 本地开发
+        "http://localhost:3001/"                     // 本地后端测试
+    ];
+
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;
